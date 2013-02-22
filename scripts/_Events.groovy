@@ -1,20 +1,3 @@
-
-
-/*
- * Avoid compilation errors on plugin install.
- */
-loadbatchConverterClass = { ->
-  def doLoad = { -> classLoader.loadClass('com.cadrlife.jhaml.JHamlBatchConverter') }
-  try {
-    doLoad()
-  } catch (ClassNotFoundException e) {
-    includeTargets << grailsScript("_GrailsCompile") 
-    compile()
-    doLoad()
-  }  
-}
-
-
 /*
  * In the war target, packageApp runs immediately before compilegsp,
  * Thus at eventPackagingEnd, we convert all haml files to gsp.
@@ -24,9 +7,11 @@ loadbatchConverterClass = { ->
  */
 
 eventPackagingEnd = {
+	def batchConverter = classLoader.loadClass("com.cadrlife.jhaml.JHamlBatchConverter").newInstance()
 	def viewdir = new File("${basedir}/grails-app/views")
-	def batchConverter = loadbatchConverterClass().newInstance()
-	//def batchConverter = new com.cadrlife.jhaml.JHamlBatchConverter()
 	batchConverter.setTargetExtenstion("gsp")
+	def config = classLoader.loadClass("com.cadrlife.jhaml.JHamlConfig").newInstance();
+	config.attrWrapper = '"';
+	batchConverter.setConfig(config)
 	batchConverter.convertAllInPath(viewdir)
 }

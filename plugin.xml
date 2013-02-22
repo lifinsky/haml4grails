@@ -1,4 +1,4 @@
-<plugin name='haml' version='0.4' grailsVersion='1.3.8 &gt; *'>
+<plugin name='haml' version='0.4.1' grailsVersion='1.3.8 &gt; *'>
   <author>Ray Myers</author>
   <authorEmail>ray.myers@gmail.com</authorEmail>
   <title>haml</title>
@@ -10,11 +10,13 @@ http://github.com/raymyers/haml4grails
 http://github.com/raymyers/JHaml
 </description>
   <documentation>http://grails.org/plugin/haml</documentation>
-  <resources>
-    <resource>BuildConfig</resource>
-    <resource>DataSource</resource>
-    <resource>UrlMappings</resource>
-  </resources>
+  <type>HamlGrailsPlugin</type>
+  <resources />
+  <repositories>
+    <repository name='mavenCentral' url='http://repo1.maven.org/maven2/' />
+  </repositories>
   <dependencies />
+  <plugins />
+  <runtimePluginRequirements />
   <behavior />
 </plugin>

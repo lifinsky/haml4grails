@@ -8,6 +8,7 @@ import org.codehaus.groovy.grails.web.pages.GroovyPageResourceLoader;
 import org.springframework.core.io.Resource;
 
 import com.cadrlife.jhaml.JHamlBatchConverter;
+import com.cadrlife.jhaml.JHamlConfig;
 
 /*
  * Wraps GroovyPageResourceLoader, generating the requested gsp from a haml file
@@ -19,6 +20,9 @@ public class HamlGroovyPageResourceLoader extends GroovyPageResourceLoader {
 	private JHamlBatchConverter batchConverter = new JHamlBatchConverter();
 	{
 		batchConverter.setTargetExtenstion("gsp");
+		JHamlConfig config = new JHamlConfig();
+		config.attrWrapper = "\"";
+		batchConverter.setConfig(config);
 	}
 	
 	@Override
